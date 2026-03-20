@@ -9,6 +9,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -72,10 +73,10 @@ export default function Login() {
 
           <div className="form-group">
             <label className="form-label">Password</label>
-            <div className="input-group">
+            <div className="input-group" style={{ position: "relative" }}>
               <i className="bi bi-lock input-icon" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 className="form-control"
                 placeholder="••••••••"
@@ -83,7 +84,29 @@ export default function Login() {
                 onChange={handleChange}
                 required
                 autoComplete="current-password"
+                style={{ paddingRight: "2.5rem" }}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                style={{
+                  position: "absolute",
+                  right: "0.75rem",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  color: "var(--text-muted)",
+                  display: "flex",
+                  alignItems: "center",
+                  zIndex: 2,
+                }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`} style={{ fontSize: "1rem" }} />
+              </button>
             </div>
           </div>
 
